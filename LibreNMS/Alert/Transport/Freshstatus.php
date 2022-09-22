@@ -217,7 +217,7 @@ class Freshstatus extends Transport
 			'component' => (string)$serviceId, 
 			'new_status' => $this->statusStr($obj['severity'])
 			]];
-		$data['source'] = null;
+		$data['source'] = 150051;
 		$data['notification_options'] = [
 			'send_notification' => False,
 			'send_tweet' => False,
@@ -272,7 +272,8 @@ class Freshstatus extends Transport
 	{
 		$opts = [
 			'data' => [
-				'message' => 'Resolved automatically by LibreNMS.',
+			    'display_time' => gmdate("Y-m-d\TH:i:s\Z", strtotime($obj['timestamp'])),
+				//'message' => 'Resolved automatically by LibreNMS.',
 				],
 			];
 		return $this->apiCall('incidents/' . $incidentId . '/resolve/', 'POST', $opts);

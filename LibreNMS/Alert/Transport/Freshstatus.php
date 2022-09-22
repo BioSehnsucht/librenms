@@ -217,7 +217,7 @@ class Freshstatus extends Transport
 			'component' => (string)$serviceId, 
 			'new_status' => $this->statusStr($obj['severity'])
 			]];
-		$data['source'] = 150051;
+		$data['source'] = $this->config['source-id'];
 		$data['notification_options'] = [
 			'send_notification' => False,
 			'send_tweet' => False,
@@ -296,6 +296,13 @@ class Freshstatus extends Transport
 					'type' => 'text',
 				],
 				[
+					'title' => 'Source ID',
+					'name' => 'source-id',
+					'descr' => 'Incident source ID',
+					'type' => 'text',
+					'default' => '150051', // This doesn't work?
+				],
+				[
 					'title' => 'Group Scope',
 					'name' => 'group-scope',
 					'descr' => 'Limit scope for host matching to specified group ID (optional)',
@@ -332,6 +339,7 @@ class Freshstatus extends Transport
 					'api-key' => 'required|string',
 					'status-warning' => 'required|in:' . self::statusList(),
 					'status-critical' => 'required|in:' . self::statusList(),
+					'source-id' => 'required|numeric',
 				]
         ];
     }
